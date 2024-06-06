@@ -1,51 +1,53 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "binary_trees.h"
 
-// Define the structure of the binary tree node
-typedef struct binary_tree_s {
-    int n;
-    struct binary_tree_s *left;
-    struct binary_tree_s *right;
-} binary_tree_t;
+/**
+ * binary_tree_is_perfect - checks if a binary tree is perfect
+ * @tree: pointer to the root node of tree to be checked
+ *
+ * Return: 1 if perfect, 0 otherwise
+ */
 
-// Helper function to calculate the depth of the leftmost leaf
-int leftmost_depth(const binary_tree_t *tree) {
-    int depth = 0;
-    while (tree != NULL) {
-        depth++;
-        tree = tree->left;
-    }
-    return depth;
+int binary_tree_is_perfect(const binary_tree_t *tree)
+{
+	int left_height = 0, right_height = 0;
+
+	if (tree == NULL)
+		return (0);
+
+	if (tree->left == NULL && tree->right == NULL)
+		return (1);
+
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+
+	if (left_height != right_height)
+		return (0);
+
+	if (tree->left != NULL && tree->right != NULL)
+		return (binary_tree_is_perfect(tree->left) &&
+				binary_tree_is_perfect(tree->right));
+	return (0);
 }
 
-// Helper function to check if the tree is perfect
-int is_perfect_recursive(const binary_tree_t *tree, int depth, int level) {
-    if (tree == NULL) {
-        return 1;
-    }
+/**
+ * binary_tree_height - measures the height of a binary tree
+ * @tree: pointer to the root node of the tree to measure the height
+ *
+ * Return: (size_t) height of the tree, or 0 if tree is NULL
+ */
 
-    // If it's a leaf node, check if it's at the correct depth
-    if (tree->left == NULL && tree->right == NULL) {
-        return depth == level + 1;
-    }
+size_t binary_tree_height(const binary_tree_t *tree)
+{
+	size_t right_height = 0, left_height = 0;
 
-    // If it's an internal node and doesn't have two children, it's not perfect
-    if (tree->left == NULL || tree->right == NULL) {
-        return 0;
-    }
+	if (tree == NULL)
+		return (0);
 
-    // Recursively check the left and right subtrees
-    return is_perfect_recursive(tree->left, depth, level + 1) &&
-           is_perfect_recursive(tree->right, depth, level + 1);
+	if (tree->right != NULL)
+		right_height = 1 + binary_tree_height(tree->right);
+
+	if (tree->left != NULL)
+		left_height = 1 + binary_tree_height(tree->left);
+
+	return ((right_height > left_height) ? right_height : left_height);
 }
-
-// Function to check if a binary tree is perfect
-int binary_tree_is_perfect(const binary_tree_t *tree) {
-    if (tree == NULL) {
-        return 0;
-    }
-
-    int depth = leftmost_depth(tree);
-    return is_perfect_recursive(tree, depth, 0);
-}
-
