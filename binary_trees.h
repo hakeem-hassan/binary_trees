@@ -22,6 +22,11 @@ struct binary_tree_s
 
 typedef struct binary_tree_s binary_tree_t;
 
+/* Queue prototypes */
+binary_tree_t **create_queue(int *front, int *rear);
+binary_tree_t *dequeue(binary_tree_t **queue, int *front);
+void enqueue(binary_tree_t **queue, int *rear, binary_tree_t *node);
+
 void binary_tree_delete(binary_tree_t *tree);
 void binary_tree_print(const binary_tree_t *tree);
 int binary_tree_is_full(const binary_tree_t *tree);
@@ -42,6 +47,7 @@ void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int));
 void binary_tree_postorder(const binary_tree_t *tree, void (*func)(int));
 binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value);
 binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value);
+void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second);
 
 #endif /*BINARY_TREES_H*/
