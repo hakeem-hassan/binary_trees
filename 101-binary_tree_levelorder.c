@@ -48,10 +48,9 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 
 binary_tree_t **create_queue(int *front, int *rear)
 {
-	binary_tree_t **queue = (binary_tree_t **) malloc(sizeof(binary_tree_t *) * Q_SIZE);
+	binary_tree_t **queue = malloc(sizeof(binary_tree_t *) * Q_SIZE);
 
-	*front = 0;
-	*rear = 0;
+	*front = *rear = 0;
 
 	return (queue);
 }
