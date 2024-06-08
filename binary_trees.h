@@ -25,7 +25,7 @@ typedef struct binary_tree_s binary_tree_t;
 /* Queue prototypes */
 binary_tree_t **create_queue(int *front, int *rear);
 binary_tree_t *dequeue(binary_tree_t **queue, int *front);
-void enqueue(binary_tree_t **queue, int *rear, binary_tree_t *node);
+void enqueue(binary_tree_t **queue, int *rear, const binary_tree_t *node);
 
 void binary_tree_delete(binary_tree_t *tree);
 void binary_tree_print(const binary_tree_t *tree);
